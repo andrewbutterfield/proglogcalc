@@ -1,0 +1,110 @@
+\documentclass[12pt,fleqn]{article}
+\usepackage[a4paper, margin=1.1in]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{stmaryrd}
+\usepackage{views}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{lstlhs}
+\usepackage{UTPCalc}
+\usepackage{mathpartir}
+\usepackage{epstopdf}
+\usepackage{doclevels}
+\usepackage{hyperref}
+\allowdisplaybreaks[2]
+% ----------------------------------------------------------------
+
+\parindent=0pt % I hate first line indentation
+\parskip=3pt   % I like a visual white gap between paragraphs
+
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+
+\newif\ifDraft
+\Drafttrue  % comment out to turn off note/draft-mode
+\ifDraft
+  \def\NOTE#1{\textbf{Note: }\textsl{#1}}
+  \def\DRAFT#1{\textbf{Draft: }\textit{#1}}
+\else
+  \def\NOTE#1{}
+  \def\DRAFT#1{}
+\fi
+
+\bibliographystyle{alpha}
+
+\title{\texttt{proglogcalc}\\A Programmable Logic Calculator}%
+\author{
+   Andrew Butterfield
+      \thanks{\noindent This work was supported, in part, by Science Foundation Ireland grant 10/CE/I1855
+      \newline \hspace*{1.8em} to Lero - the Irish Software Engineering Research Centre (www.lero.ie)}%
+   \\ Trinity College Dublin
+   \\ Ireland
+}%
+\date{\today}%
+
+\parindent=0pt % I hate first line indentation
+\parskip=3pt   % I like a visual white gap between paragraphs
+
+\mathchardef\spot="320F
+\mathcode`\@=\spot
+%\mathcode`\|=\mid
+
+\setcounter{tocdepth}{4}
+
+\begin{document}
+
+\input{Definitions}
+
+\maketitle
+\tableofcontents
+\newpage
+\input{../src/CalcTypes.lhs}
+\newpage
+\input{../src/CalcSysTypes.lhs}
+\newpage
+\input{../src/CalcAlphabets.lhs}
+\newpage
+\input{../src/CalcPredicates.lhs}
+\newpage
+\input{../src/CalcSimplify.lhs}
+\newpage
+\input{../src/CalcZipper.lhs}
+\newpage
+\input{../src/CalcSteps.lhs}
+\newpage
+\input{../src/CalcRecogniser.lhs}
+\newpage
+\input{../src/CalcRun.lhs}
+\newpage
+\input{../src/DictAbstractions.lhs}
+\newpage
+\input{../src/StdSets.lhs}
+\newpage
+\input{../src/StdPrecedences.lhs}
+\newpage
+\input{../src/StdPredicates.lhs}
+\newpage
+\input{../src/StdExpressions.lhs}
+\newpage
+\input{../src/StdLaws.lhs}
+\newpage
+\input{../src/StdUTPPrecedences.lhs}
+\newpage
+\input{../src/StdUTPPredicates.lhs}
+\newpage
+\input{../src/StdUTPLaws.lhs}
+\newpage
+\input{../src/Utilities.lhs}
+\newpage
+\input{../src/PrettyPrint.lhs}
+\appendix
+\newpage
+\input{../src/NiceSymbols.lhs}
+\newpage
+\bibliography{MAIN}
+
+\end{document}
