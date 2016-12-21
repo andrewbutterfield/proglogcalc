@@ -11,7 +11,7 @@ Reykjavik, Iceland, June 4-5 2016, Revised Selected Papers*, LNCS 10134, Springe
 Somethin to get you going...
 
 1. Go into the `src` directory
-2. Invoke GHCi on the demo module: `ghci PLCDemo.lhs`
+2. Invoke GHCi on the demo module: `ghci -i../nicesymbols/src PLCDemo.lhs`
 3. Enter `help` at the GHCi prompt
 
 ... more to come
