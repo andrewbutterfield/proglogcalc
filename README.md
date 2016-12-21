@@ -14,7 +14,11 @@ Somethin to get you going...
 2. Invoke GHCi on the demo module: `ghci -i../nicesymbols/src PLCDemo.lhs`
 3. Enter `help` at the GHCi prompt
 
-... more to come
+Or, do ...
+
+1. Give command `stack ghci`
+2. At the prompt enter `:m PLCDemo`
+3. Then enter `help`
 
 ### Contribution guidelines ###
 
