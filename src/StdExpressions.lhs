@@ -7,7 +7,7 @@ import Data.List
 import Data.Char
 import NiceSymbols
 import Debug.Trace
-import PrettyPrint
+import CalcPPrint
 import CalcTypes
 import CalcAlphabets
 import StdPrecedences

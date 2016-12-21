@@ -6,12 +6,14 @@ import Data.List
 import Data.Char
 import Data.Maybe
 import Debug.Trace
-import PrettyPrint
+import CalcPPrint
 import CalcTypes
 import CalcPredicates
 import CalcAlphabets
 import CalcSimplify
 import CalcRecogniser
+import StdExpressions
+import StdSets
 import StdPredicates
 \end{code}
 
@@ -25,10 +27,9 @@ We just give a dictionary here for the standard composites.
 stdDict :: Dict
 stdDict
  = mergeDicts
-    [ notEntry
-    , andEntry
-    , orEntry
-    , impEntry
-    , eqvEntry
+    [ dictVersion "std 0.2"
+    , stdExprDict
+    , stdSetDict
+    , stdPredDict
     ]
 \end{code}

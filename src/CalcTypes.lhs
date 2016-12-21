@@ -3,7 +3,7 @@
 module CalcTypes where
 import qualified Data.Map as M
 import Data.List
-import PrettyPrint
+import CalcPPrint
 \end{code}
 
 Here we give the user-facing types,

@@ -6,7 +6,7 @@ import qualified Data.Map as M
 import Data.List
 import Data.Char
 import Debug.Trace
-import PrettyPrint
+import CalcPPrint
 import CalcTypes
 import CalcPredicates
 import DictAbstractions

@@ -7,7 +7,7 @@ import Data.List
 import Data.Char
 import NiceSymbols
 import Debug.Trace
-import PrettyPrint
+import CalcPPrint
 import CalcTypes
 import CalcAlphabets
 import CalcRecogniser
@@ -38,12 +38,7 @@ emp = set []
 mkSet :: [Expr] -> Expr
 mkSet = set . sort . nub
 
-showSet d [elm] = edshow d elm
 showSet d elms = "{" ++ dlshow d "," elms ++ "}"
-
--- an alternate way to show a set
-flatSet d [] = "."
-flatSet d elms = dlshow d "," elms
 
 evalSet _ _ = none
 
@@ -55,27 +50,19 @@ eqSet d es1 es2
       else Nothing
 \end{code}
 
-We need code for binary operators/relations that handles the
-overloading of singletons as sets:
 \begin{code}
 evalSetBinFun op d [App nm1 es1,App nm2 es2]
  | nm1 == setn && nm2 == setn  =  op d es1   es2
-evalSetBinFun op d [es1,App nm es2]
- | nm == setn                  =  op d [es1] es2
-evalSetBinFun op d [App nm es1,es2]
- | nm == setn                  =  op d es1   [es2]
-evalSetBinFun op d [es1,es2]   =  op d [es1] [es2]
 evalSetBinFun _  _ _           =  none
 \end{code}
 
 We want some code to check and analyse both forms of singleton sets:
 \begin{code}
-isSingleton (App ns es)  =  ns == setn && length es == 1
-isSingleton _ = True
+isSingleton (App ns [_])  =  ns == setn
+isSingleton _ = False
 
 -- assumes isSingleton above
-theSingleton (App _ es)  =  head es
-theSingleton e           =  e
+theSingleton (App _ [e])  =  e
 \end{code}
 
 
@@ -186,28 +173,13 @@ isSubSeqOf a@(x:a') (y:b) | x==y       =  isSubSeqOf a' b
 From GHC 7.10 onwards this is \texttt{Data.List.subSequencesOf}.
 
 
-\subsection{Shorthands}
-
-We support a shorthand (that views a set as its own collection
-of corresponding $n$-ary characteristic functions)
-that denotes $x \in S$ by $S(x)$ and $ X \subseteq S$ by $S(X)$,
-and omits $\{$ and $\}$ from around enumerations when context makes
-it clear a set is expected
-
-\begin{eqnarray*}
-   ls(\ell) &\defs& \ell \in ls
-\\ ls(L) &\defs& L \subseteq ls
-\\ ls(\B\ell) &\defs& \ell \notin ls
-\\ ls(\B L) &\defs& L \cap ls = \emptyset
-\end{eqnarray*}
 
 \begin{code}
-showSubSet d [App "set" elms,App "set" [set]]
- = edshow d set ++ "(" ++ dlshow d "," elms ++ ")"
-showSubSet d [App "set" elms,set]
- = edshow d set ++ "(" ++ dlshow d "," elms ++ ")"
-showSubSet d [e,set]
- = edshow d set ++ "(" ++ edshow d e ++ ")"
+showSubSet d [s1, s2]
+ = "(" ++ edshow d s1
+       ++  pad _subseteq
+       ++ edshow d s2
+       ++ ")"
 \end{code}
 
 
@@ -216,7 +188,8 @@ The Set Dictionary:
 stdSetDict :: Dict
 stdSetDict
  = mergeDicts
-    [ entry setn $ ExprEntry subAny showSet noDefn evalSet eqSet
+    [ dictVersion "std-set 0.1"
+    , entry setn $ ExprEntry subAny showSet noDefn evalSet eqSet
     , entry compn $ ExprEntry subAny ppComp noDefn noEval noEq
     , entry unionn $ ExprEntry subAny ppUnion noDefn evalUnion noEq
     , entry intn $ ExprEntry subAny ppIntsct noDefn evalIntsct noEq

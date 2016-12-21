@@ -2,7 +2,7 @@
 \begin{code}
 module CalcSysTypes where
 import qualified Data.Map as M
-import PrettyPrint
+import CalcPPrint
 import CalcTypes
 \end{code}
 

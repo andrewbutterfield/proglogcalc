@@ -6,12 +6,15 @@ Andrew Butterfield, "UTPCalc - A Calculator for UTP Predicates", in Jonathan P. 
 Reykjavik, Iceland, June 4-5 2016, Revised Selected Papers*, LNCS 10134, Springer, ppX-X+19, 2017. DOI: 10.1007/978-3-319-52228-9 10
 
 
-### How do I get set up? ###
+### How do I get going? ###
 
-Details to follow
+Somethin to get you going...
 
+1. Go into the `src` directory
+2. Invoke GHCi on the demo module: `ghci PLCDemo.lhs`
+3. Enter `help` at the GHCi prompt
 
-
+... more to come
 
 ### Contribution guidelines ###
 

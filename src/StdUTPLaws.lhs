@@ -6,7 +6,7 @@ import Data.List
 import Data.Char
 import Data.Maybe
 import Debug.Trace
-import PrettyPrint
+import CalcPPrint
 import CalcTypes
 import CalcPredicates
 import CalcAlphabets
@@ -278,4 +278,5 @@ stdUTPDict
     , iterEntry
     ] `dictMrg` stdReduceEntry
       `dictMrg` stdUnrollEntry
+      `dictMrg` dictVersion "std-utp 0.2"
 \end{code}
