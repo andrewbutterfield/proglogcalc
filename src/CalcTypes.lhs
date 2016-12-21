@@ -1,4 +1,4 @@
-\HDRa{Calculator Types}\label{ha:calc-types}
+\section{Calculator Types}\label{ha:calc-types}
 \begin{code}
 module CalcTypes where
 import qualified Data.Map as M
@@ -13,7 +13,7 @@ invoke the calculator,
 and explore the resulting calculations.
 
 
-\HDRb{Syntax}
+\subsection{Syntax}
 
 First, we build some infrastructure to support a flexible expression and predicate
 syntax, with an emphasis on allowing tailored notations
@@ -22,7 +22,7 @@ rather than $in \in ps$ or $\setof{in,out} \subseteq ps$),
 effective pretty-printing of large complex nested terms,
 and highlighting sub-terms of interest.
 
-\HDRc{Expression Datatype}\label{hc:ExprData}
+\subsubsection{Expression Datatype}\label{hc:ExprData}
 
 We start by defining an expression space that includes
 booleans, integers,
@@ -52,7 +52,7 @@ pretty-printing and highlighting.
 
 
 \newpage
-\HDRc{Predicate Datatype}\label{hc:PredData}
+\subsubsection{Predicate Datatype}\label{hc:PredData}
 
 Now we need a  predicate syntax,
 which has basic predicates
@@ -88,7 +88,7 @@ data Pred
 
 
 \newpage
-\HDRb{Calculation Steps}\label{hb:calc-steps}
+\subsection{Calculation Steps}\label{hb:calc-steps}
 
 We now present the infrastructure for performing calculations.
 There are a number of different kinds of calculation step,
@@ -140,7 +140,7 @@ here along with a rendering of the chosen side-condition.
 
 
 \newpage
-\HDRb{Dictionary}\label{hb:DataDict}
+\subsection{Dictionary}\label{hb:DataDict}
 
 We need a dictionary that maps various names
 to appropriate definitions.
@@ -175,7 +175,7 @@ A dictionary entry is a sum of  definition types defined below
 data Entry =
 \end{code}
 
-\HDRc{Alphabet Entry}\label{hc:alfa-entry}
+\subsubsection{Alphabet Entry}\label{hc:alfa-entry}
 
 \begin{code}
 -- data Entry = ....
@@ -189,7 +189,7 @@ An entry
 $A \defs \setof{v_1,v_2,\ldots,v_n}$.
 
 \newpage
-\HDRc{Expression Entry}\label{hc:expr-entry}
+\subsubsection{Expression Entry}\label{hc:expr-entry}
 
 \begin{code}
 -- data Entry = ....
@@ -220,7 +220,7 @@ The string in the result is empty if it failed,
 otherwise gives the name of the function to be used in the justification
 of a proof step.
 
-\HDRc{Predicate Entry}\label{hc:pred-entry}
+\subsubsection{Predicate Entry}\label{hc:pred-entry}
 
 \begin{code}
  | PredEntry {    -- about Predicates and PredVars
@@ -265,7 +265,7 @@ To do so risks an infinite loop.
 }
 
 \newpage
-\HDRc{Law Entry}\label{hc:law-entry}
+\subsubsection{Law Entry}\label{hc:law-entry}
 
 \begin{code}
  | LawEntry {  -- about useful laws
@@ -285,13 +285,13 @@ The reduction steps are tried in order, from \m{r_1} to \m{r_m},
 or \m{cr_1} to \m{cr_n} or \m{u_1} to \m{u_p}, as appropriate.
 
 
-\HDRcstar{Entry Complete}
+\subsubsection*{Entry Complete}
 
 \begin{code}
 -- end Entry
 \end{code}
 
-\HDRc{Displaying Dictionaries}\label{hc:show-dicts}
+\subsubsection{Displaying Dictionaries}\label{hc:show-dicts}
 
 \begin{code}
 instance Show Entry where
@@ -322,7 +322,7 @@ entryShow ( n, e ) = n ++ " :- " ++ show e
 
 
 
-\HDRb{Recognisers}\label{hc:recog}
+\subsection{Recognisers}\label{hc:recog}
 
 A recogniser looks for a specific pattern within
 a predicate, and either returns \texttt{Nothing} if no such pattern exists
@@ -341,7 +341,7 @@ a ``under construction'' law name:
 rUC = "RuleUnderConstruction!!!"
 \end{code}
 
-\HDRb{Invariants}\label{hc:invarants}
+\subsection{Invariants}\label{hc:invarants}
 
 An invariant satisfaction checker takes an invariant predicate
 and a test predicate

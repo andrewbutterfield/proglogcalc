@@ -1,4 +1,4 @@
-\HDRa{Calculator Alphabets}\label{ha:calc-alpha}
+\section{Calculator Alphabets}\label{ha:calc-alpha}
 \begin{code}
 module CalcAlphabets where
 import Utilities
@@ -7,7 +7,7 @@ import CalcTypes
 import CalcPredicates
 \end{code}
 
-\HDRb{Alphabet Introduction}\label{hb:alpha-intro}
+\subsection{Alphabet Introduction}\label{hb:alpha-intro}
 
 In most%
 \footnote{Some theories, most notably those involving probability,
@@ -40,7 +40,7 @@ the context in which any given language construct was embedded.
 This enabled the construction of compositional semantic theories
 that were also ``context-aware''.
 
-\HDRb{Alphabet Subsets}\label{hb:alpha-subsets}
+\subsection{Alphabet Subsets}\label{hb:alpha-subsets}
 
 To support this
 we predefine some standard names for important alphabet subsets
@@ -65,7 +65,7 @@ applies to any variables:
 anyVars = ["*"]
 \end{code}
 
-\HDRc{Well-Formed Subsets}\label{hc:alpha-wf-subsets}
+\subsubsection{Well-Formed Subsets}\label{hc:alpha-wf-subsets}
 
 A consistent set of the above alphabets should obey the following laws:
 \RLEQNS{
@@ -89,7 +89,7 @@ In most cases, script variables will be dynamic:
 
 
 
-\HDRc{Minimal Definition}\label{hc:alpha-minimal}
+\subsubsection{Minimal Definition}\label{hc:alpha-minimal}
 
 A basic minimal definition adhering to all the above rules
 consists of disjoint alphabets $Scr$, $nonScrDyn$ and $Stc$
@@ -124,7 +124,7 @@ stdAlfDictGen scr nonScrDyn stc
      ]
 \end{code}
 
-\HDRc{ Variable Basics}\label{hc:var-basics}
+\subsubsection{ Variable Basics}\label{hc:var-basics}
 \begin{code}
 isDash, notDash :: String -> Bool
 isDash v = last v == '\''
@@ -135,10 +135,10 @@ addDash v = v ++"'"
 remDash = init
 \end{code}
 
-\HDRb{Dictionary-based Alphabet Lookup}\label{hb:alpha-lookup}
+\subsection{Dictionary-based Alphabet Lookup}\label{hb:alpha-lookup}
 
 
-\HDRc{Total Alphabet Lookup}\label{hc:total-alpha-lookup}
+\subsubsection{Total Alphabet Lookup}\label{hc:total-alpha-lookup}
 
 It can be helpful to have total alphabet lookup functions,
 returning empty lists if nothing is found:
@@ -150,7 +150,7 @@ getAlpha alfname d
      Just (AlfEntry alf)  ->  alf
 \end{code}
 
-\HDRc{Dictionary-based variable properties}\label{hb:var-prop-lookup}
+\subsubsection{Dictionary-based variable properties}\label{hb:var-prop-lookup}
 
 \begin{code}
 isStc, isDyn, isDyn', isDynObs, notDynObs :: Dict -> String -> Bool

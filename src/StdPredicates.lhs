@@ -1,4 +1,4 @@
-\HDRa{Standard Predicates}\label{ha:std-preds}
+\section{Standard Predicates}\label{ha:std-preds}
 \begin{code}
 module StdPredicates where
 import Utilities
@@ -18,7 +18,7 @@ import DictAbstractions
 Here we provide dictionary entries for all our ``standard''
  predicate forms.
 
-\HDRb{Generic Definitions}\label{hb:gen-defs}
+\subsection{Generic Definitions}\label{hb:gen-defs}
 
 
 First, a composite recogniser:
@@ -30,10 +30,10 @@ isComp _     _            =  False
 
 
 \newpage
-\HDRb{Standard Definitions}\label{hb:std-defs}
+\subsection{Standard Definitions}\label{hb:std-defs}
 
 
-\HDRc{Negation}\label{hc:def-Not}
+\subsubsection{Negation}\label{hc:def-Not}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -71,7 +71,7 @@ notEntry
 \end{code}
 
 \newpage
-\HDRc{Conjunction}\label{hc:def-And}
+\subsubsection{Conjunction}\label{hc:def-And}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -82,7 +82,7 @@ nAnd = _land
 (mkAnd, andEntry) = popSemiLattice nAnd F T precAnd
 \end{code}
 
-\HDRc{Disjunction}\label{hc:def-Or}
+\subsubsection{Disjunction}\label{hc:def-Or}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -94,7 +94,7 @@ nOr = _lor
 \end{code}
 
 \newpage
-\HDRc{Implication}\label{hc:def-Imp}
+\subsubsection{Implication}\label{hc:def-Imp}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -136,7 +136,7 @@ impEntry
 \end{code}
 
 \newpage
-\HDRc{Equivalence}\label{hc:def-Eqv}
+\subsubsection{Equivalence}\label{hc:def-Eqv}
 \RLEQNS{
   p \in Pred &::=& \ldots
 \\ &|& \mEqv & \tEqv
@@ -176,7 +176,7 @@ eqvEntry
    $ PredEntry anyVars ppEqv [] (pNoChg nEqv) simpEqv
 \end{code}
 
-\HDRb{Standard Predicate Dictionary}
+\subsection{Standard Predicate Dictionary}
 
 \begin{code}
 stdPredDict :: Dict

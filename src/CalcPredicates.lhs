@@ -1,4 +1,4 @@
-\HDRa{Calculator Predicates}\label{ha:calc-preds}
+\section{Calculator Predicates}\label{ha:calc-preds}
 \begin{code}
 module CalcPredicates where
 import Utilities
@@ -14,7 +14,7 @@ import CalcSysTypes
 import StdPrecedences
 \end{code}
 
-\HDRb{Substitutions}\label{hb:SmartSubs}
+\subsection{Substitutions}\label{hb:SmartSubs}
 
 Smart constructors and equality testing for substitutions.
 \begin{code}
@@ -32,9 +32,9 @@ ssame sub1 sub2 = sort sub1 == sort sub2
 We treat expressions as atomic from the perspective of
 pretty-printing and highlighting.
 
-\HDRb{Marking}\label{hb:marking}
+\subsection{Marking}\label{hb:marking}
 
-\HDRc{Basic Marking}\label{hc:basic-marking}
+\subsubsection{Basic Marking}\label{hc:basic-marking}
 \begin{code}
 noMark :: Pred -> MPred
 noMark = buildMarks
@@ -79,9 +79,9 @@ cleanCalc ((currpr, steps, is),d)
 \end{code}
 
 
-\HDRb{Dictionary}\label{hb:DataDict}
+\subsection{Dictionary}\label{hb:DataDict}
 
-\HDRc{Dictionary query}
+\subsubsection{Dictionary query}
 \begin{code}
 isPredEntry (PredEntry _ _ _ _ _) = True
 isPredEntry _ = False
@@ -112,7 +112,7 @@ alookup nm d
      _                     ->  Nothing
 \end{code}
 
-\HDRc{Dictionary Construction}
+\subsubsection{Dictionary Construction}
 
 \begin{code}
 makeDict :: [(String, Entry)] -> Dict
@@ -185,7 +185,7 @@ justMakes f d es = ( "",   f es )
 \end{code}
 
 
-\HDRb{Display}
+\subsection{Display}
 
 We define the display of an expression using a dictionary
 to provide exceptional ways to render things.
@@ -300,7 +300,7 @@ showp d ms p pr = mshowp d ms p $ buildMarks pr
 ppSuper d e = _supStr $ edshow d e
 \end{code}
 
-\HDRb{Debugging Aids}
+\subsection{Debugging Aids}
 
 \begin{code}
 dbg str x = trace (str++show x) x

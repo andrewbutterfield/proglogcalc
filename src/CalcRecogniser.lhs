@@ -1,4 +1,4 @@
-\HDRa{Calculator Recogniser}\label{ha:calc-recog}
+\section{Calculator Recogniser}\label{ha:calc-recog}
 \begin{code}
 module CalcRecogniser where
 import Utilities
@@ -15,7 +15,7 @@ import CalcSysTypes
 import CalcSimplify
 \end{code}
 
-\HDRb{Match Recogniser}
+\subsection{Match Recogniser}
 
 We want some pattern matching that is
 ``position-independent'',
@@ -58,9 +58,9 @@ matchRecog recog prs
 
 
 
-\HDRb{Common Recognisers}
+\subsection{Common Recognisers}
 
-\HDRc{Dashed Atomic Predicate}
+\subsubsection{Dashed Atomic Predicate}
 
 \RLEQNS{
   e', \textrm{not ground} &\rightsquigarrow& \seqof{e'}
@@ -74,7 +74,7 @@ mtchDashedObsExpr _ _  = Nothing
 isDashedObsExpr d = isJust . mtchDashedObsExpr d
 \end{code}
 
-\HDRc{After-Obs. equated to Ground Value}
+\subsubsection{After-Obs. equated to Ground Value}
 
 \RLEQNS{
   x'=k, x' \in Dyn', k \textrm{ ground} &\rightsquigarrow& \seqof{x',k}
@@ -88,7 +88,7 @@ mtchAfterEqToConst _ _  = Nothing
 isAfterEqToConst d = isJust . mtchAfterEqToConst d
 \end{code}
 
-\HDRc{Named Obs. equated to Ground Value}
+\subsubsection{Named Obs. equated to Ground Value}
 
 $x = k$, where $x$ is an nominated observable, and $k$ is ground.
 \RLEQNS{
@@ -110,7 +110,7 @@ eqToSub (Equal (Var x) e) = (x,e)
 \end{code}
 
 
-\HDRb{Supporting Variable Predicates}
+\subsection{Supporting Variable Predicates}
 
 Lifting variable functions to expressions:
 \begin{code}
@@ -158,7 +158,7 @@ isCondition = allPV notDash
 \end{code}
 
 \newpage
-\HDRc{Definite Predicates}
+\subsubsection{Definite Predicates}
 
 It can be useful to know if a variable occurs free in a predicate.
 However without full definition expansions of composites,

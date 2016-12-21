@@ -1,4 +1,4 @@
-\HDRa{Calculator Zipper}\label{ha:calc-zipper}
+\section{Calculator Zipper}\label{ha:calc-zipper}
 \begin{code}
 module CalcZipper where
 import CalcTypes
@@ -7,14 +7,14 @@ import CalcSysTypes
 \end{code}
 
 
-\HDRb{Zipper Setup}
+\subsection{Zipper Setup}
 
 \begin{code}
 startMPZ :: MPred -> MPZipper
 startMPZ mp = ( mp, [] )
 \end{code}
 
-\HDRb{Going Deeper}
+\subsection{Going Deeper}
 
 We go down by specifying which sub-component, if necessary,
 with components numbered from 0 upwards
@@ -31,7 +31,7 @@ downMPZ i ( (Comp name prs, MT ms mts), ss )
 downMPZ _ mpz = mpz -- default case, do nothing
 \end{code}
 
-\HDRb{Coming Back Up}
+\subsection{Coming Back Up}
 
 We can plug an \texttt{MPred} into a\texttt{ MPred'} to get an \texttt{MPred},
 effectively moving up one level
@@ -51,7 +51,7 @@ upMPZ ( mpr, (s:ss) ) = ( plugMPZ s mpr, ss )
 upMPZ mpz = mpz -- taken if currently at top
 \end{code}
 
-\HDRb{Modifying the Focus}
+\subsection{Modifying the Focus}
 
 \begin{code}
 updateMPZ :: (MPred -> MPred)
@@ -59,7 +59,7 @@ updateMPZ :: (MPred -> MPred)
 updateMPZ f ( mpr, ss ) = ( f mpr, ss )
 \end{code}
 
-\HDRb{Exiting the Zipper}
+\subsection{Exiting the Zipper}
 
 We can unzip by repeatedly plugging in:
 \begin{code}

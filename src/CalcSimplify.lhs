@@ -1,4 +1,4 @@
-\HDRa{Calculator Simplification}\label{ha:calc-simp}
+\section{Calculator Simplification}\label{ha:calc-simp}
 \begin{code}
 module CalcSimplify where
 import Data.List
@@ -14,7 +14,7 @@ dbg str x = trace (str++show x) x
 \end{code}
 
 
-\HDRb{Introduction}
+\subsection{Introduction}
 
 Predicate simplification
 does not use the recursive predicate search just described,
@@ -23,7 +23,7 @@ where sub-components at any level are simplified first,
 and then that level is simplified using predicate variant-specific rules
 (like (\texttt{sImp} mentioned above).
 
-\HDRc{Preliminaries}
+\subsubsection{Preliminaries}
 
 At the top-level,
 when we attempt to apply some rule,
@@ -35,7 +35,7 @@ for what has happened.
 
 
 
-\HDRb{Expression Simplification}
+\subsection{Expression Simplification}
 
 
 The top-level expression simplifier.
@@ -60,7 +60,7 @@ esimps d chgd se (e:es)
    in esimps d (chgd||chgd') (e':se) es
 \end{code}
 
-\HDRc{Function Simplification}~
+\subsubsection{Function Simplification}~
 \begin{code}
 asimp :: Dict -> String -> (Bool,[Expr]) -> (Bool, Expr)
 asimp d fn (chgd,es)
@@ -72,7 +72,7 @@ asimp d fn (chgd,es)
             ( _, e)    ->  (diff, e)
 \end{code}
 
-\HDRc{Substitution Simplification}~
+\subsubsection{Substitution Simplification}~
 \begin{code}
 ssimp :: Dict -> Substn -> (Bool,Substn)
 ssimp d subs
@@ -82,7 +82,7 @@ ssimp d subs
    in (chgd, zip vs es')
 \end{code}
 
-\HDRc{Expression Substitution}~
+\subsubsection{Expression Substitution}~
 \begin{code}
 esubst :: Substn -> Expr -> (Bool, Expr)
 esubst sub (Var v) =  vsubst sub v
@@ -104,7 +104,7 @@ essubst sub (e:es)
    in (ediff||esdiff, e':es')
 \end{code}
 
-\HDRc{Variable Substitution}~
+\subsubsection{Variable Substitution}~
 \begin{code}
 vsubst :: Substn -> String -> (Bool, Expr)
 vsubst [] v = (same, Var v)
@@ -113,7 +113,7 @@ vsubst ((u,e):subs) v
  | otherwise  =  vsubst subs v
 \end{code}
 
-\HDRb{Substitution composition}
+\subsection{Substitution composition}
 
 We can define it as follows, where common target variables ($x_i$) are listed
 first in each w.l.o.g.:
@@ -154,7 +154,7 @@ vesubst sub (v,e) = (v,snd $ esubst sub e)
 
 
 
-\HDRb{Predicate Simplification}\label{hb:simplify}
+\subsection{Predicate Simplification}\label{hb:simplify}
 
 Now, the predicate simplifier:
 \begin{code}
@@ -162,7 +162,7 @@ simplified = "simplify"
 simplify :: Dict -> Mark -> MPred -> Maybe (BeforeAfter)
 \end{code}
 
-\HDRc{Atomic Simplifier}\label{hc:simplify-atomic}
+\subsubsection{Atomic Simplifier}\label{hc:simplify-atomic}
 
 For atomic predicates,
 we simplify the underlying expression,
@@ -181,7 +181,7 @@ simplify d m mbefore@(Atm e,mt)
    | otherwise  =  Nothing
 \end{code}
 
-\HDRc{Equality Simplifier}\label{hc:simplify-equal}
+\subsubsection{Equality Simplifier}\label{hc:simplify-equal}
 
 For equality we simplify both expressions,
 and then attempt to simplify the equality to true or false.
@@ -199,7 +199,7 @@ simplify d m mpr@(Equal e1 e2, mt)
 \end{code}
 
 \newpage
-\HDRc{Composite Simplifier}\label{hc:simplify-comp}
+\subsubsection{Composite Simplifier}\label{hc:simplify-comp}
 
 For composites,
 we first simplify the components,
@@ -252,7 +252,7 @@ Assembling the result:
 \end{code}
 
 \newpage
-\HDRc{Predicate Substitution Simplifier}\label{hc:simplify-pred-subst}
+\subsubsection{Predicate Substitution Simplifier}\label{hc:simplify-pred-subst}
 
 For predicate substitutions,
 we first simplify the substitution part,
@@ -343,7 +343,7 @@ psimp d pr
      Nothing             ->  pr
 \end{code}
 
-\HDRd{Simplify ``Double-Tap''}
+\paragraph{Simplify ``Double-Tap''}
 
 It is often worth running simplify twice!
 \begin{code}
@@ -359,7 +359,7 @@ simplify2 d m mpr
 \end{code}
 
 \newpage
-\HDRc{Equality Predicate Simplification}~
+\subsubsection{Equality Predicate Simplification}~
 \begin{code}
 sEqual :: Dict -> Expr -> Expr -> (Bool, Pred)
 
@@ -400,7 +400,7 @@ sEqual d e1 e2
 
 
 \newpage
-\HDRc{Predicate Substitution}
+\subsubsection{Predicate Substitution}
 
 We note that some constructs
 cannot be substituted into until their definitions are expanded.
@@ -468,7 +468,7 @@ substitutable _ _ = True
 \end{code}
 
 \newpage
-\HDRb{Invariant Checking}\label{hb:inv-check}
+\subsection{Invariant Checking}\label{hb:inv-check}
 
 We will generally have a list of invariants to check:
 \begin{code}

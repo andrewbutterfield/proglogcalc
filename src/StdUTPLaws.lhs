@@ -1,4 +1,4 @@
-\HDRa{Standard UTP Laws}\label{ha:std-UTP-laws}
+\section{Standard UTP Laws}\label{ha:std-UTP-laws}
 \begin{code}
 module StdUTPLaws where
 import Utilities
@@ -19,7 +19,7 @@ import StdUTPPredicates
 
 
 
-\HDRb{Tailoring ``standard'' UTP}
+\subsection{Tailoring ``standard'' UTP}
 
 We make use of (almost) standard notions of skip,
 sequential composition
@@ -41,7 +41,7 @@ In essence we ignore the parameters as far as flow-of-control is concerned:
 }
 Here, the definition of $\cond\_$ is entirely standard, of course.
 
-\HDRc{Standard Skip}\label{hc:std-Skip}
+\subsubsection{Standard Skip}\label{hc:std-Skip}
 \RLEQNS{
    \Skip &\defs& Dyn' = Dyn
 }
@@ -56,7 +56,7 @@ defnII d
 
 \newpage
 
-\HDRb{Standard Reductions}\label{hb:std-reduce}
+\subsection{Standard Reductions}\label{hb:std-reduce}
 
 In the calculator we do not implement the definitions
 for $;$ and $c * P$,
@@ -72,7 +72,7 @@ lred nm pr = Just ( nm, pr, diff )
 reduceStd :: RWFun
 \end{code}
 
-\HDRc{Skip and Sequential Composition}\label{hc:skip-and-seq}
+\subsubsection{Skip and Sequential Composition}\label{hc:skip-and-seq}
 
 These laws are immediate, and their proof is left as an exercise.
 \RLEQNS{
@@ -86,7 +86,7 @@ reduceStd d _ (Comp "Seq" [pr, (Comp "Skip" [])])
                                             = lred ";-runit" pr
 \end{code}
 
-\HDRc{Conditions preceding Iteration}
+\subsubsection{Conditions preceding Iteration}
 
 The first law we might consider describes how a boolean variable changes as it
 crosses a ``$;$-boundary'':
@@ -194,7 +194,7 @@ reduceStd d _ (Comp "Seq" [(Comp "And" pAs), pB])
    Just (pre2, (Equal (Var x') k,_), post2) = match2
 \end{code}
 
-\HDRc{Disjunction and Sequential Composition}
+\subsubsection{Disjunction and Sequential Composition}
 
 We more specific laws first, more general later.
 
@@ -239,7 +239,7 @@ stdReduceEntry :: Dict
 stdReduceEntry = entry laws $ LawEntry [reduceStd] [] []
 \end{code}
 
-\HDRb{Standard Loop Unrolling}\label{hb:std-loop-unroll}
+\subsection{Standard Loop Unrolling}\label{hb:std-loop-unroll}
 
 Iteration  satisfies the loop-unrolling law:
 \[
@@ -262,7 +262,7 @@ stdUnrollEntry = entry laws $ LawEntry [] [] [unrollStd]
 \end{code}
 
 \newpage
-\HDRb{The Standard UTP Dictionary}\label{hb:std-UTP-dict}
+\subsection{The Standard UTP Dictionary}\label{hb:std-UTP-dict}
 
 \begin{code}
 stdUTPDict :: Dict

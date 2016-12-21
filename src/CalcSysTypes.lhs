@@ -1,4 +1,4 @@
-\HDRa{Calculator System Types}\label{ha:calc-sys-types}
+\section{Calculator System Types}\label{ha:calc-sys-types}
 \begin{code}
 module CalcSysTypes where
 import qualified Data.Map as M
@@ -10,7 +10,7 @@ Here we have under-the-hood types used to implement
 all the calculator features.
 Users should not import this or need to know what happens here.
 
-\HDRb{Marking}
+\subsection{Marking}
 
 We shall mark predicates with zero or more integers:
 \begin{code}
@@ -114,7 +114,7 @@ noStyles = const Nothing
 
 
 \newpage
-\HDRb{Zipper Datatypes}\label{hb:zipper-types}
+\subsection{Zipper Datatypes}\label{hb:zipper-types}
 
 We note, using the notion of ``datatypes as algebras'',
 %( http://chris-taylor.github.io/blog/2013/02/13/the-algebra-of-algebraic-data-types-part-iii/)
@@ -184,9 +184,9 @@ type MPZipper
 \end{code}
 
 \newpage
-\HDRb{Calculation Steps}\label{hb:calc-types}
+\subsection{Calculation Steps}\label{hb:calc-types}
 
-\HDRc{Calculation Step Intro}\label{hc:step-intro}
+\subsubsection{Calculation Step Intro}\label{hc:step-intro}
 
 Imagine an predicate $p$ containing sub-predicates $q_1$, $q_2$ and $q_3$,
 to which we apply $step$ three times,
@@ -240,7 +240,7 @@ when two successive steps affect the same or a nested sub-predicate.
 Here we find we need to be able to associate multiple marks with
 any sub-component.
 
-\HDRc{Calculation Step Types}\label{hc:step-types}
+\subsubsection{Calculation Step Types}\label{hc:step-types}
 
 Under the hood we need \texttt{RWResult} versions with marked predicates:
 \begin{code}

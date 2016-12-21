@@ -1,4 +1,4 @@
-\HDRa{Pretty Printer}\label{ha:pretty-printer}
+\section{Pretty Printer}\label{ha:pretty-printer}
 \begin{code}
 module PrettyPrint
  ( Style(..)
@@ -20,7 +20,7 @@ Composites will be rendered with line breaks and indentation
 in a manner that is hopefully maximally pleasing.
 We also provide a (simple) means for applying ``styles''.
 
-\HDRb{Styles}
+\subsection{Styles}
 
 For now we use ANSI escape sequences to apply styles.
 This works fine in an OS X Terminal,
@@ -57,7 +57,7 @@ reset = putStrLn resetStyle -- useful in GHCi to tidy up!
 \end{code}
 
 
-\HDRb{Pretty-Printing Types}
+\subsection{Pretty-Printing Types}
 
 \begin{eqnarray*}
   pp &::=& pp_{atom} |  pp_{ldelim} ~ pp_{delim} ~ pp_{sep} ~ pp^*
@@ -75,7 +75,7 @@ data PP' = PPA String        -- atom
 \end{code}
 
 
-\HDRb{Smart Constructors}
+\subsection{Smart Constructors}
 
 We build smart versions of the \texttt{PPA}, \texttt{PPS} and \texttt{PPC}
 constructors
@@ -142,7 +142,7 @@ paren outerp innerp pp = pp
 
 
 
-\HDRb{Simple Rendering}
+\subsection{Simple Rendering}
 
 It is useful to get the size of a \texttt{PP}, as well as the string produced
 if it is all rendered on one line.
@@ -178,7 +178,7 @@ ppstr stls (PP _ (PPC lpp rpp sepp pps))
 
 
 
-\HDRb{Full Rendering}
+\subsection{Full Rendering}
 
 Now, rendering it as a `nice' string.
 We provide the desired column width at the top level,
@@ -192,7 +192,7 @@ render :: Int -> PP -> String
 render w0 = renderIn w0 0
 \end{code}
 
-\HDRc{Lines and Formatting}
+\subsubsection{Lines and Formatting}
 
 We have atomic strings present,
 and we also need to explicitly identify newlines and indents.
@@ -221,7 +221,7 @@ fmtShow = concat . fshow []
        = resetStyle : setStyle ss' : lstr layout : fshow ss' slayouts
 \end{code}
 
-\HDRd{List viewer}
+\paragraph{List viewer}
 
 Show list elements one per line:
 \begin{code}
@@ -230,7 +230,7 @@ ldisp = putStrLn . unlines' . map show
 \end{code}
 
 
-\HDRc{Layout}
+\subsubsection{Layout}
 
 The main recursive layout algorithm has a width and indentation parameter
 ---

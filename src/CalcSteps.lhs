@@ -1,4 +1,4 @@
-\HDRa{Calculator Steps}\label{ha:calc-steps}
+\section{Calculator Steps}\label{ha:calc-steps}
 \begin{code}
 module CalcSteps where
 import Utilities
@@ -18,7 +18,7 @@ dbg str x = trace (str++show x) x
 
 
 \newpage
-\HDRb{Calculation Step Basics}\label{hb:step-basics}
+\subsection{Calculation Step Basics}\label{hb:step-basics}
 
 Given a decision,
 typically obtained from the user,
@@ -37,7 +37,7 @@ condResolve d i (Just (nm, outcomes))
 \end{code}
 
 %\newpage
-%\HDRb{Atomic Step}\label{hb:atomic-step}
+%\subsection{Atomic Step}\label{hb:atomic-step}
 %
 %We treat things like simplification here as one big atomic modify step.
 %\begin{code}
@@ -50,13 +50,13 @@ condResolve d i (Just (nm, outcomes))
 %\end{code}
 
 \newpage
-\HDRb{Recursive Predicate Search}\label{hb:rec-pred-srch}
+\subsection{Recursive Predicate Search}\label{hb:rec-pred-srch}
 
 
 We now look at applying calculation steps by recursively exploring
 a predicate, and returning when we succeed.
 
-\HDRc{Search Top Level}\label{hc:srch-top}
+\subsubsection{Search Top Level}\label{hc:srch-top}
 
 This call encapsulates the use of zippers completely:
 \begin{code}
@@ -79,7 +79,7 @@ rwLift prf (pr, MT ms _)
       -> Just (what,topMark ms $ buildMarks pr',chgd)
 \end{code}
 
-\HDRc{Search Current Focus}\label{hc:srch-focus}
+\subsubsection{Search Current Focus}\label{hc:srch-focus}
 
 We try a step function first at the current focus level,
 only recursing in deeper if that fails:
@@ -91,7 +91,7 @@ stepFocus cstep mpz@( mpr, ss )
      Nothing                 ->  stepComponents cstep mpz
 \end{code}
 
-\HDRc{Search Sub-Components}\label{hc:srch-sub-comp}
+\subsubsection{Search Sub-Components}\label{hc:srch-sub-comp}
 
 We are now systematically exploring composite sub-parts:
 \begin{code}
@@ -112,7 +112,7 @@ stepComponents cstep ( (Comp name (pr:prs), MT ms (mt:mts)), ss )
 stepComponents cstep ( mpr, ss ) = ( (mpr, "", mpr), ss )
 \end{code}
 
-\HDRc{Search Component List}\label{hc:srch-list}
+\subsubsection{Search Component List}\label{hc:srch-list}
 
 Going through a sub-component list:
 \begin{code}
@@ -141,14 +141,14 @@ stepComp' cstep s@( Comp' name before after@(npr:rest)
 \end{code}
 
 \newpage
-\HDRb{Recursive Predicate Conditional Search}\label{hb:rec-pred-cond-srch}
+\subsection{Recursive Predicate Conditional Search}\label{hb:rec-pred-cond-srch}
 
 
 We now look at applying \emph{conditional} calculation steps
 by recursively exploring
 a predicate, and returning when we succeed.
 
-\HDRc{Conditional Search Top Level}\label{hc:cond-srch-top}
+\subsubsection{Conditional Search Top Level}\label{hc:cond-srch-top}
 
 This call encapsulates the use of zippers completely:
 \begin{code}
@@ -171,7 +171,7 @@ crwLift prf (pr, mt)
  where cresLift mt (pcond,pres,chgd) = (pcond,buildMarks pres,chgd)
 \end{code}
 
-\HDRc{Conditionally Search Current Focus}\label{hc:cond-srch-focus}
+\subsubsection{Conditionally Search Current Focus}\label{hc:cond-srch-focus}
 
 We try a step function first at the current focus level,
 only recursing in deeper if that fails:
@@ -185,7 +185,7 @@ stepCFocus ccstep mpz@( mpr, ss )
 fixafters (pr, mpr', _) = (pr, mpr')
 \end{code}
 
-\HDRc{Conditionally Search Sub-Components}\label{hc:cnd-srch-sub-comp}
+\subsubsection{Conditionally Search Sub-Components}\label{hc:cnd-srch-sub-comp}
 
 We are now systematically exploring composite sub-parts:
 \begin{code}
@@ -208,7 +208,7 @@ stepCComponents ccstep ( (Comp name (pr:prs), MT ms (mt:mts)), ss )
 stepCComponents ccstep ( mpr, ss ) = ( (mpr, "", [(T,mpr)]), ss )
 \end{code}
 
-\HDRc{Conditionally Search Component List}\label{hc:cond-srch-list}
+\subsubsection{Conditionally Search Component List}\label{hc:cond-srch-list}
 
 Going through a sub-component list:
 \begin{code}
@@ -236,7 +236,7 @@ stepCComp' ccstep s@( Comp' name before after@(npr:rest)
       else result
 \end{code}
 
-\HDRb{Definition Expansion}\label{hb:defn-expand}
+\subsection{Definition Expansion}\label{hb:defn-expand}
 
 \begin{code}
 expandDefn :: Dict -> Mark
@@ -273,9 +273,9 @@ expDefs _ _ = Nothing
 
 \newpage
 
-\HDRb{(Reduction) Laws}\label{hb:reduce-laws}
+\subsection{(Reduction) Laws}\label{hb:reduce-laws}
 
-\HDRc{Simple Reduction}
+\subsubsection{Simple Reduction}
 
 \begin{code}
 doReduce :: Dict -> [Pred] -> Mark
@@ -294,7 +294,7 @@ doRed d m invs mpr@(ms,_) (rf:rfs)
     reduction  ->  reduction -- add m in as extra mark?
 \end{code}
 
-\HDRc{Conditional Reduction}
+\subsubsection{Conditional Reduction}
 
 \begin{code}
 doCReduce :: Dict -> Mark
@@ -313,7 +313,7 @@ doCRed d m mpr (rf:rfs)
     creductions  ->  creductions
 \end{code}
 
-\HDRc{Loop Unrolling}
+\subsubsection{Loop Unrolling}
 
 \begin{code}
 doUnroll :: String -> Dict -> [Pred] -> Mark

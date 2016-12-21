@@ -1,4 +1,4 @@
-\HDRa{Standard UTP Predicates}\label{ha:std-UTP-preds}
+\section{Standard UTP Predicates}\label{ha:std-UTP-preds}
 \begin{code}
 module StdUTPPredicates where
 import Utilities
@@ -21,16 +21,16 @@ UTP program/specification forms.
 
 \newpage
 
-\HDRb{Standard UTP Definitions}\label{hb:std-UTP-defs}
+\subsection{Standard UTP Definitions}\label{hb:std-UTP-defs}
 
-\HDRc{Non-composite Predicates}
+\subsubsection{Non-composite Predicates}
 
 \begin{code}
 bT = noMark T
 bF = noMark F
 \end{code}
 
-\HDRc{Lattice Top/Bottom}\label{hc:def-Top-Bot}
+\subsubsection{Lattice Top/Bottom}\label{hc:def-Top-Bot}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -60,7 +60,7 @@ botEntry
 
 
 \newpage
-\HDRc{Non-deterministic Choice}\label{hc:def-NDC}
+\subsubsection{Non-deterministic Choice}\label{hc:def-NDC}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -91,7 +91,7 @@ ndcEntry
 
 
 \newpage
-\HDRc{Refinement}\label{hc:def-Rfdby}
+\subsubsection{Refinement}\label{hc:def-Rfdby}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -123,7 +123,7 @@ bRfdby mpr1 mpr2 = noMark $ mkRfdby mpr1 mpr2
 \end{code}
 
 \newpage
-\HDRc{Conditional}\label{hc:def-Cond}
+\subsubsection{Conditional}\label{hc:def-Cond}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -154,7 +154,7 @@ condEntry
 \end{code}
 
 \newpage
-\HDRc{Skip}\label{hc:def-Skip}
+\subsubsection{Skip}\label{hc:def-Skip}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -176,7 +176,7 @@ skipEntry
 \end{code}
 
 \newpage
-\HDRc{Sequencing}\label{hc:def-Seq}
+\subsubsection{Sequencing}\label{hc:def-Seq}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
@@ -214,7 +214,7 @@ seqEntry
 \end{code}
 
 \newpage
-\HDRc{Iteration}\label{hc:def-Iter}
+\subsubsection{Iteration}\label{hc:def-Iter}
 
 \RLEQNS{
   p \in Pred &::=& \ldots

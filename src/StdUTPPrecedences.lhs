@@ -1,4 +1,4 @@
-\HDRa{Standard UTP Precedences}\label{ha:std-UTP-precs}
+\section{Standard UTP Precedences}\label{ha:std-UTP-precs}
 \begin{code}
 module StdUTPPrecedences where
 import StdPrecedences
@@ -7,7 +7,7 @@ import StdPrecedences
 %\input{src/Precedences}
 
 \newpage
-\HDRb{Standard UTP Predicates}\label{hb:standard-UTP-preds}
+\subsection{Standard UTP Predicates}\label{hb:standard-UTP-preds}
 
 We provide syntax precedence values
 for common UTP program/specification constructs as follows:

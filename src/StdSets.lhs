@@ -1,4 +1,4 @@
-\HDRa{Standard Sets}\label{ha:Std-Sets}
+\section{Standard Sets}\label{ha:Std-Sets}
 \begin{code}
 module StdSets where
 import Utilities
@@ -22,7 +22,7 @@ import CalcPredicates
 
 
 
-\HDRc{Set Expressions}
+\subsubsection{Set Expressions}
 
 We use sets in two key ways:
 checking for membership/subset inclusion;
@@ -79,7 +79,7 @@ theSingleton e           =  e
 \end{code}
 
 
-\HDRd{Set Membership/Subset}\label{hd:membership}~
+\paragraph{Set Membership/Subset}\label{hd:membership}~
 
 This is complicated by the fact we interpret
 non-set expressions as singleton sets,
@@ -110,7 +110,7 @@ precIntsc = precSpacer  12
 precSDiff = precSpacer  13
 \end{code}
 
-\HDRd{Set Unary Operators}\label{hd:set-unops}~
+\paragraph{Set Unary Operators}\label{hd:set-unops}~
 
 We have set complement ($\overline S$),
 where
@@ -125,7 +125,7 @@ ppComp d [s] = _overline (edshow d s)
 ppComp _ _ = "badd-comp"
 \end{code}
 
-\HDRd{Set Binary Operators}\label{hd:set-binops}~
+\paragraph{Set Binary Operators}\label{hd:set-binops}~
 
 \begin{code}
 unionn = _cup
@@ -167,7 +167,7 @@ dosdiff d es1 es2
 ppSDiff d ss = "("  ++ dlshow d (pad _setminus) ss ++ ")"
 \end{code}
 
-\HDRd{Set Utilities}
+\paragraph{Set Utilities}
 
 It can be useful to turn a set into a list
 of its elements:
@@ -186,7 +186,7 @@ isSubSeqOf a@(x:a') (y:b) | x==y       =  isSubSeqOf a' b
 From GHC 7.10 onwards this is \texttt{Data.List.subSequencesOf}.
 
 
-\HDRb{Shorthands}
+\subsection{Shorthands}
 
 We support a shorthand (that views a set as its own collection
 of corresponding $n$-ary characteristic functions)

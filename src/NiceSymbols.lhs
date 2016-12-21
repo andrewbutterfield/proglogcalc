@@ -1,4 +1,4 @@
-\HDRa{Nice Symbols}\label{ha:nice}
+\section{Nice Symbols}\label{ha:nice}
 
 \begin{code}
 {-# LANGUAGE CPP #-}
@@ -16,7 +16,7 @@ we define a Haskell variable \verb"_xyz"
 to be a string that gives either a Unicode/UTF-8 glyph for that symbol,
 or an approximation using ``ASCII-art''.
 
-\HDRb{Alphabet conversions}
+\subsection{Alphabet conversions}
 
 How to convert ASCII `a' to `z' into different fontstyles, in UTF-8
 (See \verb"http://qaz.wtf/u/convert.cgi?text=az").
@@ -45,9 +45,9 @@ flags        = map $ styleShift 127462 127462
 test = map $ styleShift 119886 119886
 \end{code}
 
-\HDRb{Weight Conversions}
+\subsection{Weight Conversions}
 
-\HDRc{Weight Conversion for Unix/OS X}
+\subsubsection{Weight Conversion for Unix/OS X}
 
 \begin{code}
 #ifndef mingw32_HOST_OS
@@ -63,7 +63,7 @@ overline c = ovlSGR ++ c:resetSGR
 #endif
 \end{code}
 
-\HDRc{Weight ``Conversion'' for Windows}
+\subsubsection{Weight ``Conversion'' for Windows}
 
 \begin{code}
 #ifdef mingw32_HOST_OS
@@ -73,7 +73,7 @@ bold str = str
 \end{code}
 
 
-\HDRb{Nice Symbols for OS X/Unix}
+\subsection{Nice Symbols for OS X/Unix}
 
 \begin{code}
 #ifndef mingw32_HOST_OS
@@ -190,7 +190,7 @@ _mathcal c
 \end{code}
 
 
-\HDRb{``Nice'' Symbols for Windows }
+\subsection{``Nice'' Symbols for Windows }
 
 \begin{code}
 #ifdef mingw32_HOST_OS
@@ -244,7 +244,7 @@ _mathcal c = c
 #endif
 \end{code}
 
-\HDRb{Platform Independent Code}
+\subsection{Platform Independent Code}
 
 \begin{code}
 follow "" _ = ""
@@ -295,7 +295,7 @@ main
  where maxw = maximum $ map (length . fst) nice
 \end{code}
 
-\HDRc{UnicodeData.txt Utilities}
+\subsubsection{UnicodeData.txt Utilities}
 
 The official Unicode reference is
 \verb"http://ftp.unicode.org/Public/UNIDATA/UnicodeData.txt"

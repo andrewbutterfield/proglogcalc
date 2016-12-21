@@ -1,4 +1,4 @@
-\HDRa{Standard Precedences}\label{ha:std-precs}
+\section{Standard Precedences}\label{ha:std-precs}
 \begin{code}
 module StdPrecedences where
 \end{code}
@@ -6,7 +6,7 @@ module StdPrecedences where
 %\input{src/Precedences} -- need to add/commit
 
 \newpage
-\HDRb{Standard Predicates}\label{hb:standard-preds}
+\subsection{Standard Predicates}\label{hb:standard-preds}
 
 We provide syntax precedence values
 for a fairly standard predicate language as follows:

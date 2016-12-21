@@ -1,4 +1,4 @@
-\HDRa{Running the Calculator}\label{ha:calc-run}
+\section{Running the Calculator}\label{ha:calc-run}
 \begin{code}
 module CalcRun where
 import Utilities
@@ -15,7 +15,7 @@ import CalcSteps
 import CalcSimplify
 \end{code}
 
-\HDRb{Introduction}
+\subsection{Introduction}
 
 We want to produce a result of the form
 \RLEQNS{
@@ -49,7 +49,7 @@ by marking it with $i$).
 
 
 \newpage
-\HDRc{Calculation process}
+\subsubsection{Calculation process}
 
 We start with $ne_0 = p$, and no steps
 \[ (ne_0,\seqof{}) \]
@@ -94,7 +94,7 @@ Because the others are in fact paired with a string ($w_k$) identifying the step
 \]
 
 \newpage
-\HDRb{Calculator REPL}
+\subsection{Calculator REPL}
 
 
 For now we define a simple REPL.
@@ -321,7 +321,7 @@ invMarksNE k n_k  =  k `elem` marksOf n_k
 \end{code}
 
 \newpage
-\HDRb{Displaying Calculations}
+\subsection{Displaying Calculations}
 
 First,
 a mark-style function:

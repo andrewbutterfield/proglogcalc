@@ -1,4 +1,4 @@
-\HDRa{Dictionary Abstractions}\label{ha:dict-abs}
+\section{Dictionary Abstractions}\label{ha:dict-abs}
 \begin{code}
 module DictAbstractions where
 import Utilities
@@ -21,7 +21,7 @@ We want to support a wide range of binary operators,
 and well as predicate transformers of interest.
 
 
-\HDRb{Variable Abstractions}
+\subsection{Variable Abstractions}
 
 First, we deal with simple ways to provide \texttt{PredEntry}
 for simple predicate variables:
@@ -36,9 +36,9 @@ pvarEntry nm alf
 \end{code}
 
 \newpage
-\HDRb{Predicate Abstractions}
+\subsection{Predicate Abstractions}
 
-\HDRc{Prefix Predicate Transformer}
+\subsubsection{Prefix Predicate Transformer}
 
 \RLEQNS{
    \textbf{\textsf{PT}} P &=& \ldots
@@ -75,9 +75,9 @@ prefixPT n_PT precPT optDefnPT
 \end{code}
 
 \newpage
-\HDRb{Binary Predicate Operator Abstractions}
+\subsection{Binary Predicate Operator Abstractions}
 
-\HDRc{Semigroup Operators}
+\subsubsection{Semigroup Operators}
 
 \RLEQNS{
    (a \oplus b) \oplus c &=& a \oplus (b \oplus c)
@@ -107,7 +107,7 @@ popSemiG n_SGR precSGR
       , entry n_SGR $ PredEntry subAny ppSGR [] noDefn noDefn )
 \end{code}
 
-\HDRc{Monoid Operators}
+\subsubsection{Monoid Operators}
 
 \RLEQNS{
    (a \oplus b) \oplus c &=& a \oplus (b \oplus c)
@@ -145,7 +145,7 @@ popMonoid n_MND unit precMND
 \end{code}
 
 \newpage
-\HDRc{Monoid Simplification}~
+\subsubsection{Monoid Simplification}~
 
 Given associative binary operator $\otimes$ with and unit $1$
 this embodies the following laws:
@@ -177,7 +177,7 @@ psMonoid d tag op unit prs
     | otherwise    =  Just (tag, op prs', diff )
 \end{code}
 
-\HDRc{Semi-Lattice Operators}
+\subsubsection{Semi-Lattice Operators}
 
 \RLEQNS{
    (a \oplus b) \oplus c &=& a \oplus (b \oplus c)
@@ -216,7 +216,7 @@ popSemiLattice n_SL zero unit precSL
       , entry n_SL $ PredEntry subAny ppSL [] noDefn simpSL )
 \end{code}
 
-\HDRc{Associative Flattening }~
+\subsubsection{Associative Flattening }~
 
 First, building a flattened associative list:
 \begin{code}
@@ -232,7 +232,7 @@ predPrs (Comp _ prs) = prs  ;  predPrs _ = []
 \end{code}
 
 \newpage
-\HDRc{Lattice Simplification}~
+\subsubsection{Lattice Simplification}~
 
 Given associative binary operator $\otimes$ with zero $0$ and unit $1$
 this embodies the following laws:
@@ -268,9 +268,9 @@ psLattice d tag op zero unit prs
 \end{code}
 
 \newpage
-\HDRb{Expression Abstractions}
+\subsection{Expression Abstractions}
 
-\HDRc{Binary Operators}
+\subsubsection{Binary Operators}
 
 \begin{code}
 opNonAssoc :: String                  -- dictionary name

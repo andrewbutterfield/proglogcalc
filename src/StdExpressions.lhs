@@ -1,4 +1,4 @@
-\HDRa{Standard Expressions}\label{ha:std-exprs}
+\section{Standard Expressions}\label{ha:std-exprs}
 \begin{code}
 module StdExpressions where
 import Utilities
@@ -18,7 +18,7 @@ import DictAbstractions
 Here we provide dictionary entries for all our ``standard''
  expression forms.
 
-\HDRb{Generic Definitions}\label{hb:gen-defs}
+\subsection{Generic Definitions}\label{hb:gen-defs}
 
 
 First, a application recogniser:
@@ -30,12 +30,12 @@ isApp _     _           =  False
 
 
 \newpage
-\HDRb{Numeric Expressions}\label{hb:std-numberic}
+\subsection{Numeric Expressions}\label{hb:std-numberic}
 
 
 
 \newpage
-\HDRc{Addition}\label{hc:def-And}
+\subsubsection{Addition}\label{hc:def-And}
 
 \RLEQNS{
   p \in Pred &::=& \ldots
