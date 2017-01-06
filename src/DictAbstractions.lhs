@@ -77,6 +77,46 @@ prefixPT n_PT precPT optDefnPT
 \newpage
 \subsection{Binary Predicate Operator Abstractions}
 
+We have a generic type for a function that builds
+a composite predicate given a list of same:
+\begin{code}
+type MkPredOp = String -> (Pred -> Bool) -> [Pred] -> Pred
+\end{code}
+In addition, we sometimes want to simply return a simplifed list
+of sub-predicates:
+\begin{code}
+type MkSimpPreds = (Pred -> Bool) -> [Pred] -> [Pred]
+\end{code}
+
+We can construct a generic operator builder parameterised
+by a \texttt{MkPredOp} builder function:
+\begin{code}
+pOpMk :: MkPredOp
+      -> String
+      -> Int
+      -> ( [Pred] -> Pred
+         , Dict)
+pOpMk mkop n_OP precOP
+ = let
+
+     isOP (Comp name _)  =  name == n_OP
+     isOP _              =  False
+
+     mkOP [pr] = pr
+     mkOP prs = mkop n_OP isOP prs
+
+     ppOP sCP d p [pr] = sCP p 1 pr
+     ppOP sCP d p prs
+      = paren p precOP
+          $ ppopen (pad n_OP)
+          $ ppwalk 1 (sCP precOP) prs
+
+
+   in ( mkOP
+      , entry n_OP $ PredEntry subAny ppOP [] noDefn noDefn )
+
+\end{code}
+
 \subsubsection{Semigroup Operators}
 
 \RLEQNS{
@@ -87,49 +127,36 @@ popSemiG :: String
          -> Int
          -> ( [Pred] -> Pred
             , Dict)
-popSemiG n_SGR precSGR
- = let
+popSemiG n_SGR precSGR = pOpMk mkAssocP n_SGR precSGR
+\end{code}
 
-     isSGR (Comp name _)  =  name == n_SGR
-     isSGR _              =  False
-
-     mkSGR [pr] = pr
-     mkSGR prs = mkAssoc n_SGR isSGR [] prs
-
-     ppSGR sCP d p [pr] = sCP p 1 pr
-     ppSGR sCP d p prs
-      = paren p precSGR
-          $ ppopen (pad n_SGR)
-          $ ppwalk 1 (sCP precSGR) prs
-
-
-   in ( mkSGR
-      , entry n_SGR $ PredEntry subAny ppSGR [] noDefn noDefn )
+Abelian/Idempotent variants:
+\begin{code}
+popSemiGA n_SGR precSGR = pOpMk mkCommAssocP n_SGR precSGR
+popSemiGAI n_SGR precSGR = pOpMk mkIdemCommAssocP n_SGR precSGR
 \end{code}
 
 \subsubsection{Monoid Operators}
 
-\RLEQNS{
-   (a \oplus b) \oplus c &=& a \oplus (b \oplus c)
-\\ 1 \oplus a &= a =& a \oplus 1
-}
-
-Associative binary operators with  unit elements.
+First, a generic paramterised builder:
 \begin{code}
-popMonoid :: String
-         -> Pred
-         -> Int
-         -> ( [Pred] -> Pred
-            , Dict)
-popMonoid n_MND unit precMND
+pMonMk :: MkSimpPreds
+       -> String
+       -> Pred
+       -> Int
+       -> ( [Pred] -> Pred
+          , Dict)
+pMonMk mksimpp n_MND unit precMND
  = let
 
      isMND (Comp name _)  =  name == n_MND
      isMND _              =  False
 
-     mkMND [] = unit
-     mkMND [pr] = pr
-     mkMND prs = mkAssoc n_MND isMND [] prs
+     mkMND prs
+      = case mksimpp isMND prs of
+          []    ->  unit
+          [pr]  ->  pr
+          prs   ->  Comp n_MND prs
 
      ppMND sCP d p []   = sCP p 0 unit
      ppMND sCP d p [pr] = sCP p 1 pr
@@ -143,6 +170,12 @@ popMonoid n_MND unit precMND
    in ( mkMND
       , entry n_MND $ PredEntry subAny ppMND [] noDefn simpMND )
 \end{code}
+
+
+\RLEQNS{
+   (a \oplus b) \oplus c &=& a \oplus (b \oplus c)
+\\ 1 \oplus a &= a =& a \oplus 1
+}
 
 \newpage
 \subsubsection{Monoid Simplification}~
@@ -177,6 +210,23 @@ psMonoid d tag op unit prs
     | otherwise    =  Just (tag, op prs', diff )
 \end{code}
 
+Associative binary operators with  unit elements.
+\begin{code}
+popMonoid :: String  -- operator name
+          -> Pred    -- unit predicate
+          -> Int     -- operator precedence
+          -> ( [Pred] -> Pred
+             , Dict )
+popMonoid = pMonMk mkAssocPs
+\end{code}
+
+Variants:
+\begin{code}
+popMonoidA = pMonMk mkCommAssocPs
+popMonoidAI = pMonMk mkIdemCommAssocPs
+\end{code}
+
+
 \subsubsection{Semi-Lattice Operators}
 
 \RLEQNS{
@@ -201,7 +251,7 @@ popSemiLattice n_SL zero unit precSL
 
      mkSL [] = unit
      mkSL [pr] = pr
-     mkSL prs = mkAssoc n_SL isSL [] prs
+     mkSL prs = mkAssocP n_SL isSL prs
 
      ppSL sCP d p []   = sCP p 0 unit
      ppSL sCP d p [pr] = sCP p 1 pr
@@ -216,20 +266,6 @@ popSemiLattice n_SL zero unit precSL
       , entry n_SL $ PredEntry subAny ppSL [] noDefn simpSL )
 \end{code}
 
-\subsubsection{Associative Flattening }~
-
-First, building a flattened associative list:
-\begin{code}
-mkAssoc
-  :: String -> (Pred -> Bool) -> [Pred] -> [Pred]
-  -> Pred
-mkAssoc op isOp srp [] = Comp op $ reverse srp
-mkAssoc op isOp srp (pr:prs)
- | isOp pr = mkAssoc op isOp (reverse (predPrs pr)++srp) prs
- | otherwise  = mkAssoc op isOp (pr:srp) prs
-
-predPrs (Comp _ prs) = prs  ;  predPrs _ = []
-\end{code}
 
 \newpage
 \subsubsection{Lattice Simplification}~
@@ -287,4 +323,62 @@ opNonAssoc nm op
 
    entryOp
     = entry nm $ ExprEntry subAny ppOp noDefn noEval noEq
+\end{code}
+
+\newpage
+\subsection{Smart Builders}
+
+\subsubsection{Associative Flattening }~
+
+First, building a flattened associative list:
+\begin{code}
+mkAssoc :: (t -> Bool) -> (t -> [t]) -> [t] -> [t] -> [t]
+mkAssoc isOp subt st [] = reverse st
+mkAssoc isOp subt st (t:ts)
+ | isOp t = mkAssoc isOp subt (reverse (subt t)++st) ts
+ | otherwise  = mkAssoc isOp subt (t:st) ts
+
+mkAssocP :: MkPredOp
+mkAssocP op isOp = Comp op . mkAssoc isOp predPrs []
+
+mkAssocPs :: (Pred -> Bool) -> [Pred] -> [Pred]
+mkAssocPs isOp = mkAssoc isOp predPrs []
+
+predPrs :: Pred -> [Pred]
+predPrs (Comp _ prs) = prs  ;  predPrs _ = []
+\end{code}
+
+\subsubsection{Commutative Ordering }~
+
+This allows us to sort a list of terms
+\begin{code}
+mkComm :: Ord t => [t] -> [t]
+mkComm = sort
+\end{code}
+
+\subsubsection{Idempotent Duplicate Removal}~
+
+Remove duplicates --- we assume list is sorted
+\begin{code}
+mkIdem :: Eq t => [t] -> [t]
+mkIdem (t:ts@(t':_))
+ | t == t' = mkIdem ts
+ | otherwise  =  t : mkIdem ts
+mkIdem ts = ts
+\end{code}
+
+\subsubsection{Mixing and Matching}
+
+Commutativity and Associativity
+\begin{code}
+mkCommAssocPs isOp = mkComm . mkAssocPs isOp
+mkCommAssocP :: MkPredOp
+mkCommAssocP op isOp = Comp op . mkCommAssocPs isOp
+\end{code}
+
+Idempotency, Commutativity and Associativity
+\begin{code}
+mkIdemCommAssocPs isOp = mkIdem . mkComm . mkAssocPs isOp
+mkIdemCommAssocP :: MkPredOp
+mkIdemCommAssocP op isOp = Comp op . mkIdemCommAssocPs isOp
 \end{code}
