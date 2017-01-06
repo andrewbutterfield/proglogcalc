@@ -71,7 +71,7 @@ nNDC = "NDC" ; isNDC  = isComp nNDC
 
 mkNDC [] = T
 mkNDC [pr] = pr
-mkNDC prs = mkAssoc nNDC isNDC [] prs
+mkNDC prs = mkAssocP nNDC isNDC prs
 
 ppNDC sCP d p []    =  sCP p 0 T
 ppNDC sCP d p [pr]  =  sCP p 1 pr

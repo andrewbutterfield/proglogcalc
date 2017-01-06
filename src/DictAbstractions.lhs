@@ -117,6 +117,7 @@ pOpMk mkop n_OP precOP
 
 \end{code}
 
+\newpage
 \subsubsection{Semigroup Operators}
 
 \RLEQNS{
@@ -136,8 +137,13 @@ popSemiGA n_SGR precSGR = pOpMk mkCommAssocP n_SGR precSGR
 popSemiGAI n_SGR precSGR = pOpMk mkIdemCommAssocP n_SGR precSGR
 \end{code}
 
+\newpage
 \subsubsection{Monoid Operators}
 
+\RLEQNS{
+   (a \oplus b) \oplus c &=& a \oplus (b \oplus c)
+\\ 1 \oplus a &= a =& a \oplus 1
+}
 First, a generic paramterised builder:
 \begin{code}
 pMonMk :: MkSimpPreds
@@ -172,10 +178,6 @@ pMonMk mksimpp n_MND unit precMND
 \end{code}
 
 
-\RLEQNS{
-   (a \oplus b) \oplus c &=& a \oplus (b \oplus c)
-\\ 1 \oplus a &= a =& a \oplus 1
-}
 
 \newpage
 \subsubsection{Monoid Simplification}~
@@ -226,7 +228,7 @@ popMonoidA = pMonMk mkCommAssocPs
 popMonoidAI = pMonMk mkIdemCommAssocPs
 \end{code}
 
-
+\newpage
 \subsubsection{Semi-Lattice Operators}
 
 \RLEQNS{
@@ -236,22 +238,26 @@ popMonoidAI = pMonMk mkIdemCommAssocPs
 }
 
 Associative binary operators with both unit and zero elements.
+Here we defer zero annihilation to the simplifier.
 \begin{code}
-popSemiLattice :: String
-              -> Pred
-              -> Pred
-              -> Int
-              -> ( [Pred] -> Pred
-                 , Dict)
-popSemiLattice n_SL zero unit precSL
+pSemiLMk :: MkSimpPreds
+         -> String
+         -> Pred
+         -> Pred
+         -> Int
+         -> ( [Pred] -> Pred
+            , Dict )
+pSemiLMk mksimpp n_SL zero unit precSL
  = let
 
      isSL (Comp name _)  =  name == n_SL
      isSL _              =  False
 
-     mkSL [] = unit
-     mkSL [pr] = pr
-     mkSL prs = mkAssocP n_SL isSL prs
+     mkSL prs
+      = case mksimpp isSL prs of
+         []    ->  unit
+         [pr]  ->  pr
+         prs'  ->  Comp n_SL prs'
 
      ppSL sCP d p []   = sCP p 0 unit
      ppSL sCP d p [pr] = sCP p 1 pr
@@ -279,8 +285,8 @@ this embodies the following laws:
 }
 \begin{code}
 psLattice :: Dict
-          -> String               -- op. name
-          -> ([Pred] -> Pred) -- op. builder
+          -> String             -- op. name
+          -> ([Pred] -> Pred)   -- op. builder
           -> Pred               -- zero
           -> Pred               -- unit
           -> [Pred]             -- op. arguments
@@ -301,6 +307,21 @@ psLattice d tag op zero unit prs
     | prs' == prs  =  Nothing
     | null prs'    =  Just (tag, unit, diff )
     | otherwise    =  Just (tag, op prs', diff )
+\end{code}
+
+\begin{code}
+popSemiLattice :: String
+              -> Pred
+              -> Pred
+              -> Int
+              -> ( [Pred] -> Pred
+                 , Dict)
+popSemiLattice = pSemiLMk mkAssocPs
+\end{code}
+Now, some commutative/idempotent variants:
+\begin{code}
+popSemiLatticeA = pSemiLMk mkCommAssocPs
+popSemiLatticeAI = pSemiLMk mkIdemCommAssocPs
 \end{code}
 
 \newpage
