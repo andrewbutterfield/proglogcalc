@@ -6,13 +6,14 @@ import qualified Data.Map as M
 import Data.List
 import Data.Char
 import Debug.Trace
+import NiceSymbols
 import CalcPPrint
 import CalcTypes
 import CalcPredicates
 import DictAbstractions
 import StdPrecedences
 import StdPredicates
-import StdUTPPrecedences
+import StdUTPPrecedences 
 \end{code}
 
 Here we provide dictionary entries for all our ``standard''
@@ -89,7 +90,6 @@ ndcEntry
 \end{code}
 
 
-
 \newpage
 \subsubsection{Refinement}\label{hc:def-Rfdby}
 
@@ -98,18 +98,18 @@ ndcEntry
 \\ &|& \mRby & \tRby
 }
 \begin{code}
-nRfdby = "Rfdby" ; isRfdby  = isComp nRfdby
+nRfdby = "_sqsubseteq" ; isRfdby  = isComp nRfdby
 
 mkRfdby pr1 pr2 = Comp nRfdby [pr1,pr2]
 
 ppRfdby sCP d p [pr1,pr2]
  = paren p precRfdby
-     $ ppopen " |= " [ sCP precRfdby 1 pr1
-                     , sCP precRfdby 2 pr2 ]
+     $ ppopen (pad nRfdby) [ sCP precRfdby 1 pr1
+                           , sCP precRfdby 2 pr2 ]
 ppRfdby _ _ _ _ = pps styleRed $ ppa "invalid-|="
 
-simpRfdby d [T, pr2] = Just ("true-|=",T,diff)
-simpRfdby d [pr1, F] = Just ("|=-false",T,diff)
+simpRfdby d [T, pr2] = Just ("true-"++nRfdby,T,diff)
+simpRfdby d [pr1, F] = Just (nRfdby++"-false",T,diff)
 simpRfdby d [pr1, pr2] = Nothing
 
 rfdbyEntry :: (String, Entry)

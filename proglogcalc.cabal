@@ -1,5 +1,5 @@
 name:                proglogcalc
-version:             0.1.1.0
+version:             0.1.1.1
 synopsis:            Programmable Logic Caclulator
 license:             MIT
 license-file:        LICENSE
@@ -36,4 +36,3 @@ library
                , nicesymbols
   hs-source-dirs:     src/
   default-language:   Haskell2010
-
