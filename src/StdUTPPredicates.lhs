@@ -13,7 +13,7 @@ import CalcPredicates
 import DictAbstractions
 import StdPrecedences
 import StdPredicates
-import StdUTPPrecedences 
+import StdUTPPrecedences
 \end{code}
 
 Here we provide dictionary entries for all our ``standard''
@@ -98,7 +98,7 @@ ndcEntry
 \\ &|& \mRby & \tRby
 }
 \begin{code}
-nRfdby = "_sqsubseteq" ; isRfdby  = isComp nRfdby
+nRfdby = _sqsubseteq ; isRfdby  = isComp nRfdby
 
 mkRfdby pr1 pr2 = Comp nRfdby [pr1,pr2]
 
