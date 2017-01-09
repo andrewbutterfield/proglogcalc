@@ -1,10 +1,10 @@
 name:                proglogcalc
-version:             0.1.0.7
+version:             0.1.1.0
 synopsis:            Programmable Logic Caclulator
 license:             MIT
 license-file:        LICENSE
 author:              Andrew Butterfield
-maintainer:          Andrew.Butterfield@scsstcd.ie
+maintainer:          Andrew.Butterfield@scss.tcd.ie
 category:            Logic, Formal
 build-type:          Simple
 cabal-version:       >=1.10

@@ -146,6 +146,20 @@ mergeDicts ::[Dict] -> Dict
 mergeDicts = foldl dictMrg M.empty
 \end{code}
 
+A way to update an entry would also be handy:
+\begin{code}
+updateDict :: String -> (Entry -> Entry) -> Dict -> Dict
+updateDict nm efun d
+ = case M.lookup nm d of
+    Nothing     ->   d
+    Just ent  ->   entry nm (efun ent) `dictMrg` d
+\end{code}
+
+We need auxilliaries to modify individual components:
+\begin{code}
+prsimpUpdate new entry = entry{ prsimp = new }
+\end{code}
+
 
 Default expression/predicate entry functions
 \begin{code}
