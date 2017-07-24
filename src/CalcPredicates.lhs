@@ -160,6 +160,19 @@ We need auxilliaries to modify individual components:
 prsimpUpdate new entry = entry{ prsimp = new }
 \end{code}
 
+Checking for names:
+\begin{code}
+eHasName :: String -> Expr -> Bool
+eHasName n (Var m)   =  n == m
+eHasName n(App m _)  =  n == m
+eHasName _ _         =  False
+
+pHasName :: String -> Pred -> Bool
+pHasName n (PVar m)    =  n == m
+pHasName n (Comp m _)  =  n == m
+pHasName _ _           =  False
+\end{code}
+
 
 Default expression/predicate entry functions
 \begin{code}
