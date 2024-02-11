@@ -5,7 +5,7 @@ import Utilities
 import qualified Data.Map as M
 import Data.List
 import Data.Char
---import NiceSymbols
+--import Symbols
 import Debug.Trace
 import CalcPPrint
 import CalcTypes

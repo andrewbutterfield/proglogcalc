@@ -5,7 +5,7 @@ import Utilities
 import Data.List
 import Data.Char
 import Data.Maybe
-import NiceSymbols
+import Symbols
 import Debug.Trace
 import CalcPPrint
 import CalcTypes
