@@ -15,9 +15,9 @@ module
   , _epsilon, _tau, _sigma, _Sigma, _omega, _lambda, _Lambda
   , _top, _bot, _sqcap, _sqcup, _sqsubseteq, _sqsupseteq
   , _skip, _lif, _rif, _while
-  , _true , _false , _not, _and, _or, _imp, _eqv
+  , _true , _false , _lnot, _land, _lor, _implies, _equiv
   , _forall, _exists
-  , _powerset, _emptyset, _union, _intsct, _setminus
+  , _powerset, _emptyset, _cup, _cap, _setminus
   , _in, _subseteq, _supseteq, _varnothing
   , _neq, _notin, _nexists, _nsubseteq
   , _langle, _rangle
@@ -108,7 +108,7 @@ nicesym :: String -> String
 \end{code}
 So we shall define
 \begin{verbatim}
-_imp = nicesym "imp"
+_implies = nicesym "imp"
 \end{verbatim}
 The particular rendering used by these variables
 is as a result of conditional compilation.
@@ -213,8 +213,8 @@ _lif = nicesym "lif" ; _rif = nicesym "rif"
 _while = nicesym "while"
 
 _true = nicesym "true" ; _false = nicesym "false"
-_not = nicesym "not" ; _and = nicesym "and" ; _or = nicesym "or"
-_imp = nicesym "imp" ; _eqv = nicesym "eqv"
+_lnot = nicesym "not" ; _land = nicesym "and" ; _lor = nicesym "or"
+_implies = nicesym "imp" ; _equiv = nicesym "eqv"
 
 _forall = nicesym "forall" ; _exists = nicesym "exists"
 
@@ -582,7 +582,7 @@ whack ss (c:cs)
  where
    cs' = whack ss cs
 
-badWidths = _imp ++ _star ++ _fun ++ _pfun ++ _ffun ++ _maplet
+badWidths = _implies ++ _star ++ _fun ++ _pfun ++ _ffun ++ _maplet
 #endif
 \end{code}
 
@@ -626,11 +626,11 @@ niceSyms
    , ("_rif",_rif)
    , ("_true", _true)
    , ("_false", _false)
-   , ("_not", _not)
-   , ("_and", _and)
-   , ("_or", _or)
-   , ("_imp", _imp)
-   , ("_eqv", _eqv)
+   , ("_lnot", _lnot)
+   , ("_land", _land)
+   , ("_lor", _lor)
+   , ("_implies", _implies)
+   , ("_equiv", _equiv)
    , ("_exists", _exists)
    , ("_forall", _forall)
    , ("_emptyset", _emptyset)
